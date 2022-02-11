@@ -1,0 +1,32 @@
+[tool.poetry]
+name = "py-blackslope"
+version = "0.1.0"
+description = ""
+authors = ["pmotameni <47757728+pmotameni@users.noreply.github.com>"]
+packages = [
+    { include="scripts", from="." },
+]
+
+[tool.poetry.scripts]
+start = "scripts.server:main"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+Django = "^4.0"
+pydantic = "^1.9.0"
+drf-yasg = "^1.20.0"
+py-automapper = "^1.0.1"
+django-health-check = "^3.16.5"
+requests = "^2.27.1"
+django-environ = "^0.8.1"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2"
+pre-commit = "^2.17.0"
+isort = "^5.10.1"
+black = "^22.1.0"
+pytest-django = "^4.5.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
