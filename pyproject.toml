@@ -19,6 +19,7 @@ py-automapper = "^1.0.1"
 django-health-check = "^3.16.5"
 requests = "^2.27.1"
 django-environ = "^0.8.1"
+jsonpickle = "^2.1.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2"
