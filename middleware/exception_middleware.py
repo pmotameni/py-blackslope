@@ -24,7 +24,6 @@ class ExceptionMiddleware:
     def process_exception(self, request, exception):
         response: ApiResponse
         status_code = ApiHttpStatusCode.InternalServerError
-        print(type(exception) is ApiException)
         if type(exception) is ApiException:
             api_exception: ApiException = exception
             status_code = api_exception.api_http_status_code
