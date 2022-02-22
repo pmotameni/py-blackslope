@@ -2,4 +2,4 @@ from .viewmodels import (CreateMovie, CreateMoviesRequest, GetMovieResponse,
                          GetMoviesResponse, Movie, UpdateMovieRequest,
                          UpdateMoviesRequest)
 
-from .views import MoviesController
+from .views import MoviesController, MovieController
