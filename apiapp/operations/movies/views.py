@@ -47,7 +47,6 @@ class MoviesController(BaseController):
             mapper.to(MovieDomainModel).map(m) for m in create_request.movies
         ]
         created_movies = self.movie_svc.create_movies(movies_domain)
-        # TODO Change the response to return the created movies with ids
         response = GetMoviesResponse(movies=created_movies)
         return JsonResponse(response.dict(), safe=False)
 
