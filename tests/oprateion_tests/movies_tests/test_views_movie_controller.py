@@ -17,9 +17,10 @@ class TestMovieControllerGetShould:
         return_value = MovieDomainModel(id=1, title="test movie")
         mocker.patch("apiapp.services.movies.MovieService.get_movie",
                      return_value=return_value)
-        request = factory.get("/movies/1/", format='json')
+        request = factory.get("/movies/", format='json')
         view = MovieController.as_view()
-        response = view(request)
+        response = view(request, id=1)
 
+        MovieService.get_movie.assert_called_once_with(1)
         assert response.status_code == 200
-        # assert response.content == b''
+        assert response.content == b'{"movie": {"id": "1", "title": "test movie", "description": null, "release_d' b'ate": null}}'

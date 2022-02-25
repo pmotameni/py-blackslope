@@ -19,7 +19,6 @@ from .viewmodels import UpdateMovieRequest, UpdateMoviesRequest
 class BaseController(APIController):
     @staticmethod
     def get_dict_from_list(pydantic_models):
-        # TODO add check that type is list
         if type(pydantic_models) is not list:
             raise Exception("List needed")
         return [m.dict() for m in pydantic_models]
@@ -35,7 +34,6 @@ class MoviesController(BaseController):
 
     def get(self, request, format=None):
         movies_dm = self.movie_svc.get_movies()
-        # TODO register the mapper profile instead
         movies_vm = [mapper.to(MovieViewModel).map(m) for m in movies_dm]
         response = GetMoviesResponse(movies=movies_vm)
         return JsonResponse(response.dict(), safe=False)
