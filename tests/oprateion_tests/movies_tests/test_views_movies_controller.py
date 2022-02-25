@@ -46,7 +46,7 @@ class TestMoviesControllerPostShould:
 class TestMoviesControllerGetShould:
     '''Tests for Movies Controller get  which returns multiple movies'''
 
-    def test_pass(self, factory, mocker):
+    def test_return_list_of_movies(self, factory, mocker):
         return_value = [MovieDomainModel(id=1, title="test movie")]
         mocker.patch("apiapp.services.movies.MovieService.get_movies",
                      return_value=return_value)
