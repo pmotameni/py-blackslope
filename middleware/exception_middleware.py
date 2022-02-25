@@ -34,5 +34,5 @@ class ExceptionMiddleware:
         # TODO: log
 
         return HttpResponse(status=status_code.value,
-                            reason=jsonpickle.encode(response),
+                            content=jsonpickle.encode(response, unpicklable=False),
                             content_type="application/json")
