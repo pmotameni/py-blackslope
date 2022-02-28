@@ -46,3 +46,16 @@ class TestMovieControllerPutShould:
 
         MovieService.update_movie.assert_called_once_with(movie_dm)
         assert response.status_code == 204
+
+
+class TestMovieControllerDeleteShould:
+    def test_delete_single_movie(self, factory, mocker):
+        '''Tests for Movie Controller put which update a single movie'''
+
+        mocker.patch("apiapp.services.movies.MovieService.delete_movie")
+        request = factory.delete("/movies/1/")
+        view = MovieController.as_view()
+        response = view(request, id=1)
+
+        MovieService.delete_movie.assert_called_once_with(1)
+        assert response.status_code == 204
