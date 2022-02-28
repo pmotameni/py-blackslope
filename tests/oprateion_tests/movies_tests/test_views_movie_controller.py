@@ -11,7 +11,7 @@ def factory():
 
 
 class TestMovieControllerGetShould:
-    '''Tests for Movies Controller get  which returns multiple movies'''
+    '''Tests for Movie Controller get  which return single movie'''
 
     def test_return_single_movie(self, factory, mocker):
         return_value = MovieDomainModel(id=1, title="test movie")
@@ -24,3 +24,25 @@ class TestMovieControllerGetShould:
         MovieService.get_movie.assert_called_once_with(1)
         assert response.status_code == 200
         assert response.content == b'{"movie": {"id": "1", "title": "test movie", "description": null, "release_d' b'ate": null}}'
+
+
+class TestMovieControllerPutShould:
+    def test_update_single_movie(self, factory, mocker):
+        '''Tests for Movie Controller put which update a single movie'''
+
+        mocker.patch("apiapp.services.movies.MovieService.update_movie")
+        request = factory.put("/movies/1/",
+                              {
+                                  "movie": {
+                                      "id": "1",
+                                      "title": "test movie",
+                                      "description": "desc2"
+                                  }
+                              }, format='json')
+        view = MovieController.as_view()
+        response = view(request, id=1)
+        movie_dm = MovieDomainModel(id=1, title="test movie",
+                                    description="desc2")
+
+        MovieService.update_movie.assert_called_once_with(movie_dm)
+        assert response.status_code == 204
