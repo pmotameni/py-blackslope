@@ -14,6 +14,7 @@ from .viewmodels import Movie as MovieViewModel
 from .viewmodels import UpdateMovieRequest, UpdateMoviesRequest
 
 # Create your controllers and endpoints here.
+from ...common.decorators.strong_type import strong_type
 
 
 class BaseController(APIController):
@@ -38,8 +39,8 @@ class MoviesController(BaseController):
         response = GetMoviesResponse(movies=movies_vm)
         return JsonResponse(response.dict(), safe=False)
 
-    def post(self, request, format=None):
-        create_request = parse_obj_as(CreateMoviesRequest, request.data)
+    @strong_type(request_position=1, argument_name="create_request")
+    def post(self, request, create_request: CreateMoviesRequest, format=None):
         # Map View Model to Domain Models
         movies_domain = [
             mapper.to(MovieDomainModel).map(m) for m in create_request.movies
@@ -65,10 +66,10 @@ class MovieController(BaseController):
         response = GetMovieResponse(movie=movie_vm)
         return JsonResponse(response.dict())
 
-    def put(self, request, id, format=None):
-        update_request = parse_obj_as(UpdateMovieRequest, request.data)
+    @strong_type()
+    def put(self, request, id, model: UpdateMovieRequest, format=None):
         # Map View Model to Domain Models
-        movie_dm = mapper.to(MovieDomainModel).map(update_request.movie)
+        movie_dm = mapper.to(MovieDomainModel).map(model.movie)
         self.movie_svc.update_movie(movie_dm)
         return Response(status=status.HTTP_204_NO_CONTENT)
 
