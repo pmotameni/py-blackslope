@@ -1,4 +1,3 @@
-from pydantic import ValidationError
 from apiapp.operations.movies import MovieController
 from apiapp.services.movies import Movie as MovieDomainModel, MovieService
 import pytest

@@ -6,19 +6,19 @@ from .domainmodels import Movie as MovieDomainModel
 
 class MovieService:
     def __init__(self):
-        # TODO register the service instance somewhere!
-        #       we do not to recreate this everytime
+        # TODO register the service instance some where!
+        #       we do not need to recreate this everytime
         self.movie_repo = MovieRepository()
 
-    def create_movies(self, movies):
+    def create_movies(self, movies: MovieDomainModel):
         movies_dto = [self.map_movie_domain_to_dto(m) for m in movies]
         created_movies = self.movie_repo.create_movies(movies_dto)
         return [self.map_movie_dto_to_domain(m) for m in created_movies]
 
-    def delete_movie(self, id):
+    def delete_movie(self, id: str):
         self.movie_repo.delete_movie(id)
 
-    def get_movie(self, id):
+    def get_movie(self, id: str):
         """Returns single movie"""
         movie_dto = self.movie_repo.get_movie(id)
         return self.map_movie_dto_to_domain(movie_dto)
@@ -28,13 +28,13 @@ class MovieService:
         movies_dto = self.movie_repo.get_movies()
         return [self.map_movie_dto_to_domain(m) for m in movies_dto]
 
-    def update_movie(self, movie):
+    def update_movie(self, movie: MovieDomainModel):
         """Update single multiple movie"""
         movie_dto = self.map_movie_domain_to_dto(movie, has_id=True)
         self.movie_repo.update_movie(movie_dto)
         return
 
-    def does_movie_exist(self, title):
+    def does_movie_exist(self, title: str):
         """This is a simple search by title"""
         pass
 
