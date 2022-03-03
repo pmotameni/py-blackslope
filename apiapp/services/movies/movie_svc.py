@@ -3,6 +3,8 @@ from apiapp.repositories.movies import MovieRepository
 
 from .domainmodels import Movie as MovieDomainModel
 
+from automapper import mapper
+
 
 class MovieService:
     def __init__(self):
@@ -11,9 +13,9 @@ class MovieService:
         self.movie_repo = MovieRepository()
 
     def create_movies(self, movies: MovieDomainModel):
-        movies_dto = [self.map_movie_domain_to_dto(m) for m in movies]
+        movies_dto = [mapper.to(MovieDTO).map(m) for m in movies]
         created_movies = self.movie_repo.create_movies(movies_dto)
-        return [self.map_movie_dto_to_domain(m) for m in created_movies]
+        return [mapper.to(MovieDomainModel).map(m) for m in created_movies]
 
     def delete_movie(self, id: str):
         self.movie_repo.delete_movie(id)
@@ -21,16 +23,16 @@ class MovieService:
     def get_movie(self, id: str):
         """Returns single movie"""
         movie_dto = self.movie_repo.get_movie(id)
-        return self.map_movie_dto_to_domain(movie_dto)
+        return mapper.to(MovieDomainModel).map(movie_dto)
 
     def get_movies(self):
         """'Returns list of movies"""
         movies_dto = self.movie_repo.get_movies()
-        return [self.map_movie_dto_to_domain(m) for m in movies_dto]
+        return [mapper.to(MovieDomainModel).map(m) for m in movies_dto]
 
     def update_movie(self, movie: MovieDomainModel):
         """Update single multiple movie"""
-        movie_dto = self.map_movie_domain_to_dto(movie, has_id=True)
+        movie_dto = mapper.to(MovieDTO).map(movie)
         self.movie_repo.update_movie(movie_dto)
         return
 
@@ -38,24 +40,24 @@ class MovieService:
         """This is a simple search by title"""
         pass
 
-    @staticmethod
-    def map_movie_dto_to_domain(movie) -> MovieDomainModel:
-        # TODO this is temporary need to create def for automapper
-        return MovieDomainModel(
-            id=movie.id,
-            title=movie.title,
-            description=movie.description,
-            release_date=movie.release_date,
-        )
-
-    @staticmethod
-    def map_movie_domain_to_dto(movie, has_id=False) -> MovieDTO:
-        # TODO this is temporary need to create def for automapper
-        dto = MovieDTO(
-            title=movie.title,
-            description=movie.description,
-            release_date=movie.release_date,
-        )
-        if has_id:
-            dto.id = movie.id
-        return dto
+    # @staticmethod
+    # def map_movie_dto_to_domain(movie) -> MovieDomainModel:
+    #     # TODO this is temporary need to create def for extensions
+    #     return MovieDomainModel(
+    #         id=movie.id,
+    #         title=movie.title,
+    #         description=movie.description,
+    #         release_date=movie.release_date,
+    #     )
+    #
+    # @staticmethod
+    # def map_movie_domain_to_dto(movie, has_id=False) -> MovieDTO:
+    #     # TODO this is temporary need to create def for extensions
+    #     dto = MovieDTO(
+    #         title=movie.title,
+    #         description=movie.description,
+    #         release_date=movie.release_date,
+    #     )
+    #     if has_id:
+    #         dto.id = movie.id
+    #     return dto

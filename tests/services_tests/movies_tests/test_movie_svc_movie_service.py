@@ -1,3 +1,5 @@
+from unittest import TestCase
+
 from pydantic import ValidationError
 from apiapp.services.movies import Movie as MovieDomainModel, MovieService
 from apiapp.repositories.movies import Movie as MovieDTO, MovieRepository
@@ -13,13 +15,14 @@ class TestMovieServiceCreateMoviesShould:
     def test_call_repo_with_correct_type(self, service, mocker):
 
         src_dm = [MovieDomainModel(title="test movie")]
-        # src_dto = [MovieDTO(title="test movie")]
+        src_dto = [MovieDTO(title="test movie")]
 
         mocker.patch(
             "apiapp.repositories.movies.MovieRepository.create_movies")
 
         service.create_movies(src_dm)
 
+        assert MovieRepository.create_movies.call_args_list[0][0][0][0].title == src_dto[0].title
         MovieRepository.create_movies.assert_called_once()
 
 
