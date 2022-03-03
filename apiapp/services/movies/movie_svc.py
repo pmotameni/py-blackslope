@@ -39,25 +39,3 @@ class MovieService:
     def does_movie_exist(self, title: str):
         """This is a simple search by title"""
         pass
-
-    # @staticmethod
-    # def map_movie_dto_to_domain(movie) -> MovieDomainModel:
-    #     # TODO this is temporary need to create def for extensions
-    #     return MovieDomainModel(
-    #         id=movie.id,
-    #         title=movie.title,
-    #         description=movie.description,
-    #         release_date=movie.release_date,
-    #     )
-    #
-    # @staticmethod
-    # def map_movie_domain_to_dto(movie, has_id=False) -> MovieDTO:
-    #     # TODO this is temporary need to create def for extensions
-    #     dto = MovieDTO(
-    #         title=movie.title,
-    #         description=movie.description,
-    #         release_date=movie.release_date,
-    #     )
-    #     if has_id:
-    #         dto.id = movie.id
-    #     return dto
