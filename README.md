@@ -41,6 +41,20 @@ $ ./run.sh
 $ poetry run python manage.py runserver
 ```
 
+## Run tests and get coverage
+
+To run tests
+
+```shell
+$ poetry run pytest
+```
+
+To include coverage in the result
+
+```shell
+$ poetry run pytest --cov
+```
+
 # How to add API Endpoint
 
 Py-BlackSlope uses the View Class approach for API endpoints
@@ -106,5 +120,5 @@ Group the test in classes. The class name should start with `Test` and the test 
 To get coverage for the apiapp project in the
 
 ```shell
-pytest --cov=apiapp tests/
+$ poetry run pytest --cov
 ```

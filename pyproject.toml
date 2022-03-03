@@ -5,6 +5,8 @@ description = ""
 authors = ["pmotameni <47757728+pmotameni@users.noreply.github.com>"]
 packages = [
     { include="scripts", from="." },
+    { include ="apiapp", from = "." },
+    { include ="blackslope", from = "." },
 ]
 
 [tool.poetry.scripts]
@@ -29,6 +31,9 @@ black = "^22.1.0"
 pytest-django = "^4.5.2"
 pytest-mock = "^3.7.0"
 pytest-cov = "^3.0.0"
+
+[tool.coverage.run]
+source = ['apiapp','blackslope']
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
