@@ -100,3 +100,11 @@ cache, database, storage, disk and memory utilization (via psutil), AWS S3 stora
 With [pytest](https://docs.pytest.org/) you can create and run tests for different units of an application. [pytest-django] (https://pytest-django.readthedocs.io/) is a plugin for pytest with some tools for testing Django application.
 
 Group the test in classes. The class name should start with `Test` and the test methods in that class should start with `test_`. The other classes and methods would be skipped.
+
+## pytest-cov
+
+To get coverage for the apiapp project in the
+
+```shell
+pytest --cov=apiapp tests/
+```
