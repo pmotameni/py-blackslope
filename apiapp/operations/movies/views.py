@@ -34,7 +34,8 @@ class MoviesController(BaseController):
         super().__init__(**kwargs)
 
     def get(self, request, format=None):
-        movies_dm = self.movie_svc.get_movies()
+        search_term = self.request.query_params.get('title')
+        movies_dm = self.movie_svc.get_movies(search_term)
         movies_vm = [mapper.to(MovieViewModel).map(m) for m in movies_dm]
         response = GetMoviesResponse(movies=movies_vm)
         return JsonResponse(response.dict(), safe=False)
