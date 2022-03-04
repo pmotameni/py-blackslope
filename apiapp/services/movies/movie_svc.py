@@ -1,9 +1,9 @@
+from automapper import mapper
+
 from apiapp.repositories.movies import Movie as MovieDTO
 from apiapp.repositories.movies import MovieRepository
 
 from .domainmodels import Movie as MovieDomainModel
-
-from automapper import mapper
 
 
 class MovieService:

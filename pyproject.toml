@@ -11,6 +11,10 @@ packages = [
 
 [tool.poetry.scripts]
 start = "scripts.server:main"
+install = "scripts.dev:install"
+pre-commit = "scripts.dev:pre_commit"
+lint = "scripts.dev:lint"
+test = "scripts.dev:test"
 
 [tool.poetry.dependencies]
 python = "^3.10"
@@ -22,6 +26,7 @@ django-health-check = "^3.16.5"
 requests = "^2.27.1"
 django-environ = "^0.8.1"
 jsonpickle = "^2.1.0"
+pylint-django = "^2.5.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2"
@@ -31,6 +36,7 @@ black = "^22.1.0"
 pytest-django = "^4.5.2"
 pytest-mock = "^3.7.0"
 pytest-cov = "^3.0.0"
+pylint = "^2.12.2"
 
 [tool.coverage.run]
 source = ['apiapp','blackslope']

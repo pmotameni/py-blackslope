@@ -1,11 +1,11 @@
-from pydantic import ValidationError
+import pytest
+from pydantic import BaseModel, ValidationError
+from rest_framework.test import APIRequestFactory
 
 from apiapp.common.decorators.strong_type import strong_type
 from apiapp.operations.movies import MovieController
-from apiapp.services.movies import Movie as MovieDomainModel, MovieService
-import pytest
-from rest_framework.test import APIRequestFactory
-from pydantic import BaseModel
+from apiapp.services.movies import Movie as MovieDomainModel
+from apiapp.services.movies import MovieService
 
 
 @pytest.fixture(scope="function")
@@ -14,7 +14,7 @@ def factory():
 
 
 class TestStrongTypeDecoratorShould:
-    '''Tests for Movies Controller get  which returns multiple movies'''
+    """Tests for Movies Controller get  which returns multiple movies"""
 
     def test_fills_strong_type(self, factory, mocker):
         class TestRequest:
@@ -31,5 +31,3 @@ class TestStrongTypeDecoratorShould:
         test_request.data = {"test": "something"}
 
         test(test_request)
-
-
