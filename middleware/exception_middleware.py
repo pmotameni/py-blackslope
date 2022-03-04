@@ -33,6 +33,8 @@ class ExceptionMiddleware:
 
         # TODO: log
 
-        return HttpResponse(status=status_code.value,
-                            content=jsonpickle.encode(response, unpicklable=False),
-                            content_type="application/json")
+        return HttpResponse(
+            status=status_code.value,
+            content=jsonpickle.encode(response, unpicklable=False),
+            content_type="application/json",
+        )

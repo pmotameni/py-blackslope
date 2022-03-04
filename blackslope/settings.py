@@ -1,8 +1,8 @@
 from pathlib import Path
 
 import environ
-
 from automapper import mapper
+
 from apiapp.common.extensions.django_py_automapper_extension import extend
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -34,7 +34,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "drf_yasg",
     "apiapp",
-    'health_check',
+    "health_check",
 ]
 
 MIDDLEWARE = [
@@ -45,7 +45,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "middleware.exception_middleware.ExceptionMiddleware"
+    "middleware.exception_middleware.ExceptionMiddleware",
 ]
 
 ROOT_URLCONF = "blackslope.urls"

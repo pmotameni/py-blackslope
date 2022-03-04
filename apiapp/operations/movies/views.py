@@ -8,13 +8,16 @@ from rest_framework.views import APIView as APIController
 from apiapp.services.movies import Movie as MovieDomainModel
 from apiapp.services.movies import MovieService
 
-from .viewmodels import (CreateMovie, CreateMoviesRequest, GetMovieResponse,
-                         GetMoviesResponse)
-from .viewmodels import Movie as MovieViewModel
-from .viewmodels import UpdateMovieRequest, UpdateMoviesRequest
-
 # Create your controllers and endpoints here.
 from ...common.decorators.strong_type import strong_type
+from .viewmodels import (
+    CreateMovie,
+    CreateMoviesRequest,
+    GetMovieResponse,
+    GetMoviesResponse,
+)
+from .viewmodels import Movie as MovieViewModel
+from .viewmodels import UpdateMovieRequest, UpdateMoviesRequest
 
 
 class BaseController(APIController):
@@ -33,7 +36,7 @@ class MoviesController(BaseController):
         self.movie_svc = MovieService()
         super().__init__(**kwargs)
 
-    def get(self, request, format=None):
+    def get(self):
         search_term = self.request.query_params.get('title')
         movies_dm = self.movie_svc.get_movies(search_term)
         movies_vm = [mapper.to(MovieViewModel).map(m) for m in movies_dm]

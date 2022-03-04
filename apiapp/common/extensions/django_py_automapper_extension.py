@@ -1,8 +1,7 @@
-from typing import Type, Iterable
-
-from django.db import models
+from typing import Iterable, Type
 
 from automapper import Mapper
+from django.db import models
 
 
 def spec_function(target_cls: Type[models.Model]) -> Iterable[str]:

@@ -13,6 +13,7 @@ def strong_type(request_position: int = 1, argument_name: str = "model"):
             kwargs[argument_name] = data
 
             return fn(*args, **kwargs)
-        return wrapper
-    return decorator_wrapper
 
+        return wrapper
+
+    return decorator_wrapper
