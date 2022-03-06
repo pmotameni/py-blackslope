@@ -8,10 +8,10 @@ Python implementation of BlackSlope
 
 # How to run
 
-## Install dependencies
+## Install dependencies and pre-commit git hooks
 
 ```shell
-$ poetry install
+$ poetry run install
 ```
 
 ## Initialize the environment
@@ -53,6 +53,20 @@ To include coverage in the result
 
 ```shell
 $ poetry run pytest --cov
+```
+
+## Linting
+To lint the application
+```shell
+poetry run lint
+```
+This command will lint your application and fix what it can.
+
+## Precommit
+
+When you try to commit your code in git, the pre-commit package will run linting and tests against your application. These checks help ensure code consistency and quality. Any failures will prevent you from committing your code. To check if pre-commit will fail without committing, run the following command:
+```shell
+poetry run pre-commit
 ```
 
 # How to add API Endpoint
@@ -122,3 +136,27 @@ To get coverage for the apiapp project in the
 ```shell
 $ poetry run pytest --cov
 ```
+
+## Custom Components
+
+### django py automapper
+This extension to py-automapper allows conversion to and from dtos derived from models.Model
+
+### strong_type decorator
+This decorator will automatically inject a strongly typed model into your django controller endpoint. Note that the parentheses are required.
+
+```python
+@strong_type()
+def my_endpoint(self, request, model: MyModelClass)
+    ...
+```
+
+By default, the decorator looks for the request in the second position. It must search by position because django passes it as an arg, not a kwarg. Also by default, the decorator will look for a kwarg named model with a type hint and attempt to convert request.data into that type. If you need to specify values other than those defaults, you can do so:
+
+```python
+@strong_type(request_position=2, argument_name="model_class")
+def my_endpoint(self, something_else, request, model_class: MyModelClass)
+    ...
+```
+
+Note that request_position is base 0.

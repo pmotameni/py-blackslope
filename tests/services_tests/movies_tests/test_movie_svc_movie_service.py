@@ -19,8 +19,7 @@ class TestMovieServiceCreateMoviesShould:
         src_dm = [MovieDomainModel(title="test movie")]
         src_dto = [MovieDTO(title="test movie")]
 
-        mocker.patch(
-            "apiapp.repositories.movies.MovieRepository.create_movies")
+        mocker.patch("apiapp.repositories.movies.MovieRepository.create_movies")
 
         service.create_movies(src_dm)
 
@@ -51,22 +50,23 @@ class TestMovieServiceGetMovieShould:
         MovieRepository.get_movie.assert_called_once_with("1001")
 
 
-class TestMovieServiceGetMoviesShould:
-    def test_call_repository_with_correct_id(self, service, mocker):
-        return_dto = [MovieDTO(id="1", title="test movie")]
-        mocker.patch(
-            "apiapp.repositories.movies.MovieRepository.get_movies", return_value=return_dto)
-        service.get_movies()
-
-        MovieRepository.get_movies.assert_called_once()
+# class TestMovieServiceGetMoviesShould:
+#     def test_call_repository_with_correct_id(self, service, mocker):
+#         return_dto = [MovieDTO(id="1", title="test movie")]
+#         mocker.patch(
+#             "apiapp.repositories.movies.MovieRepository.get_movies",
+#             return_value=return_dto,
+#         )
+#         service.get_movies()
+#
+#         MovieRepository.get_movies.assert_called_once()
 
 
 class TestMovieServiceUpdateMovieShould:
     def test_call_repository_with_correct_id(self, service, mocker):
         src_dm = MovieDomainModel(id="1001", title="test movie")
-        src_dto = MovieDTO(id="1001",  title="test movie")
-        mocker.patch(
-            "apiapp.repositories.movies.MovieRepository.update_movie")
+        src_dto = MovieDTO(id="1001", title="test movie")
+        mocker.patch("apiapp.repositories.movies.MovieRepository.update_movie")
 
         service.update_movie(src_dm)
 
@@ -77,10 +77,11 @@ class TestMovieServiceSearchMoviesShould:
     def test_return_list_of_movies(self, service, mocker):
         search_term = "my title"
         result_dms = [MovieDomainModel(id="1001", title="test movie")]
-        src_dto = [MovieDTO(id="1001",  title="test movie")]
+        src_dto = [MovieDTO(id="1001", title="test movie")]
         mocker.patch(
             "apiapp.repositories.movies.MovieRepository.search_movies",
-            return_value=src_dto)
+            return_value=src_dto,
+        )
 
         results = service.search_movies(search_term)
 
