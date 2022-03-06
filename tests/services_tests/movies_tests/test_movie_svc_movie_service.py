@@ -16,8 +16,7 @@ class TestMovieServiceCreateMoviesShould:
         src_dm = [MovieDomainModel(title="test movie")]
         src_dto = [MovieDTO(title="test movie")]
 
-        mocker.patch(
-            "apiapp.repositories.movies.MovieRepository.create_movies")
+        mocker.patch("apiapp.repositories.movies.MovieRepository.create_movies")
 
         service.create_movies(src_dm)
 

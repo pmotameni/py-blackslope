@@ -50,6 +50,7 @@ class TestMoviesControllerPostShould:
         ]
         MovieService.create_movies.assert_not_called()
 
+
 class TestMoviesControllerGetShould:
     """Tests for Movies Controller get  which returns multiple movies"""
 

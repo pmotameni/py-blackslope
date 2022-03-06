@@ -29,9 +29,11 @@ class MovieService:
 
     def get_movies(self, search_term: str = None) -> list[MovieDomainModel]:
         """'Returns list of movies"""
-        movies_dto = self.movie_repo.search_movies(search_term) \
-            if search_term \
+        movies_dto = (
+            self.movie_repo.search_movies(search_term)
+            if search_term
             else self.movie_repo.get_movies()
+        )
         return [mapper.to(MovieDomainModel).map(m) for m in movies_dto]
 
     def update_movie(self, movie: MovieDomainModel) -> None:

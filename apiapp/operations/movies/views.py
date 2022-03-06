@@ -37,7 +37,7 @@ class MoviesController(BaseController):
         super().__init__(**kwargs)
 
     def get(self, request):
-        search_term = request.query_params.get('title')
+        search_term = request.query_params.get("title")
         print(search_term)
         movies_dm = self.movie_svc.get_movies(search_term)
         movies_vm = [mapper.to(MovieViewModel).map(m) for m in movies_dm]
