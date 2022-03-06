@@ -5,7 +5,9 @@ IS_WINDOWS = os.name == "nt"
 
 
 def install():
-    cmd = ["poetry", "install", "&&", "pre-commit", "install"]
+    cmd = ["poetry", "install"]
+    subprocess.run(cmd, shell=IS_WINDOWS)
+    cmd = ["pre-commit", "install"]
     subprocess.run(cmd, shell=IS_WINDOWS)
 
 
