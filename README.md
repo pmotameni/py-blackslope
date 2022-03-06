@@ -56,15 +56,19 @@ $ poetry run pytest --cov
 ```
 
 ## Linting
+
 To lint the application
+
 ```shell
 poetry run lint
 ```
+
 This command will lint your application and fix what it can.
 
 ## Precommit
 
 When you try to commit your code in git, the pre-commit package will run linting and tests against your application. These checks help ensure code consistency and quality. Any failures will prevent you from committing your code. To check if pre-commit will fail without committing, run the following command:
+
 ```shell
 poetry run pre-commit
 ```
@@ -113,7 +117,7 @@ $ python manage.py migrate
 
 > Python auto mapper is useful for multilayer architecture which requires constant mapping between objects from separate layers (data layer, presentation layer, etc).
 
-py-automapper has extensions for Pydantic!?
+py-automapper has built-in extension for Pydantic but it does not have one for Django ORM. Blackslope `django_py_automapper_extension` provides this functionality for `django.db` models.
 
 ## django-health-check
 
@@ -139,10 +143,8 @@ $ poetry run pytest --cov
 
 ## Custom Components
 
-### django py automapper
-This extension to py-automapper allows conversion to and from dtos derived from models.Model
-
 ### strong_type decorator
+
 This decorator will automatically inject a strongly typed model into your django controller endpoint. Note that the parentheses are required.
 
 ```python
