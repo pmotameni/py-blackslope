@@ -1,7 +1,4 @@
-from unittest import TestCase
-
 import pytest
-from pydantic import ValidationError
 
 from apiapp.repositories.movies import Movie as MovieDTO
 from apiapp.repositories.movies import MovieRepository
@@ -19,7 +16,8 @@ class TestMovieServiceCreateMoviesShould:
         src_dm = [MovieDomainModel(title="test movie")]
         src_dto = [MovieDTO(title="test movie")]
 
-        mocker.patch("apiapp.repositories.movies.MovieRepository.create_movies")
+        mocker.patch(
+            "apiapp.repositories.movies.MovieRepository.create_movies")
 
         service.create_movies(src_dm)
 
@@ -50,16 +48,30 @@ class TestMovieServiceGetMovieShould:
         MovieRepository.get_movie.assert_called_once_with("1001")
 
 
-# class TestMovieServiceGetMoviesShould:
-#     def test_call_repository_with_correct_id(self, service, mocker):
-#         return_dto = [MovieDTO(id="1", title="test movie")]
-#         mocker.patch(
-#             "apiapp.repositories.movies.MovieRepository.get_movies",
-#             return_value=return_dto,
-#         )
-#         service.get_movies()
-#
-#         MovieRepository.get_movies.assert_called_once()
+class TestMovieServiceGetMoviesShould:
+    def test_call_repository_with_correct_id(self, service, mocker):
+        return_dto = [MovieDTO(id="1", title="test movie")]
+        mocker.patch(
+            "apiapp.repositories.movies.MovieRepository.get_movies",
+            return_value=return_dto,
+        )
+        service.get_movies()
+
+        MovieRepository.get_movies.assert_called_once()
+
+    def test_return_movies_with_search_term(self, service, mocker):
+        search_term = "my title"
+        result_dms = [MovieDomainModel(id="1001", title="test movie")]
+        src_dto = [MovieDTO(id="1001", title="test movie")]
+        mocker.patch(
+            "apiapp.repositories.movies.MovieRepository.search_movies",
+            return_value=src_dto,
+        )
+
+        results = service.get_movies(search_term)
+
+        MovieRepository.search_movies.assert_called_once_with(search_term)
+        assert results == result_dms
 
 
 class TestMovieServiceUpdateMovieShould:
@@ -71,19 +83,3 @@ class TestMovieServiceUpdateMovieShould:
         service.update_movie(src_dm)
 
         MovieRepository.update_movie.assert_called_once_with(src_dto)
-
-
-class TestMovieServiceSearchMoviesShould:
-    def test_return_list_of_movies(self, service, mocker):
-        search_term = "my title"
-        result_dms = [MovieDomainModel(id="1001", title="test movie")]
-        src_dto = [MovieDTO(id="1001", title="test movie")]
-        mocker.patch(
-            "apiapp.repositories.movies.MovieRepository.search_movies",
-            return_value=src_dto,
-        )
-
-        results = service.search_movies(search_term)
-
-        MovieRepository.search_movies.assert_called_once_with(search_term)
-        assert results == result_dms
