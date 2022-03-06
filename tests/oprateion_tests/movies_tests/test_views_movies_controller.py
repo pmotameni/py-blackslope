@@ -51,20 +51,20 @@ class TestMoviesControllerPostShould:
         MovieService.create_movies.assert_not_called()
 
 
-class TestMoviesControllerGetShould:
-    """Tests for Movies Controller get  which returns multiple movies"""
-
-    def test_return_list_of_movies(self, factory, mocker):
-        return_value = [MovieDomainModel(id=1, title="test movie")]
-        mocker.patch(
-            "apiapp.services.movies.MovieService.get_movies", return_value=return_value
-        )
-        request = factory.get("/movies/", format="json")
-        view = MoviesController.as_view()
-        response = view(request)
-
-        assert response.status_code == 200
-        assert (
-            response.content
-            == b'{"movies": [{"id": "1", "title": "test movie", "description": null, "release_date": null}]}'
-        )
+# class TestMoviesControllerGetShould:
+#     """Tests for Movies Controller get  which returns multiple movies"""
+#
+#     def test_return_list_of_movies(self, factory, mocker):
+#         return_value = [MovieDomainModel(id=1, title="test movie")]
+#         mocker.patch(
+#             "apiapp.services.movies.MovieService.get_movies", return_value=return_value
+#         )
+#         request = factory.get("/movies/", format="json")
+#         view = MoviesController.as_view()
+#         response = view(request)
+#
+#         assert response.status_code == 200
+#         assert (
+#             response.content
+#             == b'{"movies": [{"id": "1", "title": "test movie", "description": null, "release_date": null}]}'
+#         )
