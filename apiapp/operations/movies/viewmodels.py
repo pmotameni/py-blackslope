@@ -3,38 +3,32 @@ from datetime import date
 from pydantic import BaseModel
 
 
-class Movie(BaseModel):
+class MovieViewModel(BaseModel):
     id: str | None
     title: str
     description: str | None
     release_date: date | None
 
 
-class CreateMovie(BaseModel):
-    title: str
-    description: str | None
-    release_date: date | None
-
-
 class CreateMovieRequest(BaseModel):
-    movie: CreateMovie
+    movie: MovieViewModel
 
 
 class CreateMoviesRequest(BaseModel):
-    movies: list[CreateMovie]
+    movies: list[MovieViewModel]
 
 
 class UpdateMovieRequest(BaseModel):
-    movie: Movie
+    movie: MovieViewModel
 
 
 class UpdateMoviesRequest(BaseModel):
-    movies: list[Movie]
+    movies: list[MovieViewModel]
 
 
 class GetMovieResponse(BaseModel):
-    movie: Movie
+    movie: MovieViewModel
 
 
 class GetMoviesResponse(BaseModel):
-    movies: list[Movie]
+    movies: list[MovieViewModel]

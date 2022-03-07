@@ -1,9 +1,7 @@
 from .viewmodels import (
-    CreateMovie,
     CreateMoviesRequest,
     GetMovieResponse,
-    GetMoviesResponse,
-    Movie,
+    MovieViewModel,
     UpdateMovieRequest,
     UpdateMoviesRequest,
 )

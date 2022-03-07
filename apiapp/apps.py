@@ -7,6 +7,7 @@ class ApiAppConfig(AppConfig):
 
     def ready(self) -> None:
         # use import to let signal find the models
+        # pylint: disable=C0415
         from apiapp.repositories.movies import Movie
 
         return super().ready()

@@ -40,4 +40,3 @@ class MovieService:
         """Update single multiple movie"""
         movie_dto = mapper.to(MovieDTO).map(movie)
         self.movie_repo.update_movie(movie_dto)
-        return

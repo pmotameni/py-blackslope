@@ -1,23 +1,21 @@
 from automapper import mapper
 from django.http import JsonResponse
-from pydantic import parse_obj_as
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView as APIController
 
+# Create your controllers and endpoints here.
+from apiapp.common.decorators.strong_type import strong_type
 from apiapp.services.movies import Movie as MovieDomainModel
 from apiapp.services.movies import MovieService
 
-# Create your controllers and endpoints here.
-from ...common.decorators.strong_type import strong_type
 from .viewmodels import (
-    CreateMovie,
     CreateMoviesRequest,
     GetMovieResponse,
     GetMoviesResponse,
+    MovieViewModel,
+    UpdateMovieRequest,
 )
-from .viewmodels import Movie as MovieViewModel
-from .viewmodels import UpdateMovieRequest, UpdateMoviesRequest
 
 
 class BaseController(APIController):
