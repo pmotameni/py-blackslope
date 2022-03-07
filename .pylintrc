@@ -1,5 +1,6 @@
 [MASTER]
 extension-pkg-whitelist=pydantic
 disable=
-    C0114, C0115, C0116, C0117, C0118, C0119# missing-module-docstring
-    , W0511, W0611, W0613, W0622, C0103, C0123 #TO BE FIXED
+    C0114, C0115, C0116, C0117, C0118, C0119 # missing-module-docstring
+    , W0511, W0611, W0613 , C0103 #TO BE FIXED
+    , W0622 # Redefining built-in 'id' and 'format'

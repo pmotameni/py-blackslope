@@ -21,7 +21,7 @@ from .viewmodels import (
 class BaseController(APIController):
     @staticmethod
     def get_dict_from_list(pydantic_models):
-        if type(pydantic_models) is not list:
+        if not pydantic_models.isinstance(list):
             raise Exception("List needed")
         return [m.dict() for m in pydantic_models]
 
