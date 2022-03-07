@@ -8,6 +8,9 @@ from rest_framework.views import APIView as APIController
 from apiapp.common.decorators.strong_type import strong_type
 from apiapp.services.movies import Movie as MovieDomainModel
 from apiapp.services.movies import MovieService
+from middleware.api_error import ApiError
+from middleware.api_exception import ApiException
+from middleware.api_http_status_code import ApiHttpStatusCode
 
 from .viewmodels import (
     CreateMoviesRequest,
@@ -43,7 +46,7 @@ class MoviesController(BaseController):
         return JsonResponse(response.dict(), safe=False)
 
     @strong_type(request_position=1, argument_name="create_request")
-    def post(self, request, create_request: CreateMoviesRequest, format=None):
+    def post(self, request, create_request: CreateMoviesRequest):
         # Map View Model to Domain Models
         movies_domain = [
             mapper.to(MovieDomainModel).map(m) for m in create_request.movies
@@ -63,19 +66,28 @@ class MovieController(BaseController):
         self.movie_svc = MovieService()
         super().__init__(**kwargs)
 
-    def get(self, request, id, format=None):
+    def get(self, request, id):
         movie_dm = self.movie_svc.get_movie(id)
         movie_vm = mapper.to(MovieViewModel).map(movie_dm)
         response = GetMovieResponse(movie=movie_vm)
         return JsonResponse(response.dict())
 
     @strong_type()
-    def put(self, request, id, model: UpdateMovieRequest, format=None):
+    def put(self, request, id: str, model: UpdateMovieRequest):
         # Map View Model to Domain Models
-        movie_dm = mapper.to(MovieDomainModel).map(model.movie)
+        movie = model.movie
+        if movie.id != str(id):
+            # TODO this does not work as expected.
+            raise ApiException(
+                ApiHttpStatusCode.BadRequest,
+                errors=[
+                    ApiError(4001, f"Id mismatched in url:{id} vs body {movie.id}")
+                ],
+            )
+        movie_dm = mapper.to(MovieDomainModel).map(movie)
         self.movie_svc.update_movie(movie_dm)
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-    def delete(self, request, id, format=None):
+    def delete(self, request, id):
         self.movie_svc.delete_movie(id)
         return Response(status=status.HTTP_204_NO_CONTENT)
