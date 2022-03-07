@@ -38,6 +38,9 @@ pytest-mock = "^3.7.0"
 pytest-cov = "^3.0.0"
 pylint = "^2.12.2"
 
+[tool.isort]
+profile = "black"
+
 [tool.coverage.run]
 source = ['apiapp','blackslope']
 
