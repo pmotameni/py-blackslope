@@ -74,10 +74,8 @@ class MovieController(BaseController):
 
     @strong_type()
     def put(self, request, id: str, model: UpdateMovieRequest):
-        # Map View Model to Domain Models
         movie = model.movie
         if movie.id != str(id):
-            # TODO this does not work as expected.
             raise ApiException(
                 ApiHttpStatusCode.BadRequest,
                 errors=[
