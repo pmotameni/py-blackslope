@@ -18,7 +18,7 @@ environ.Env.read_env()
 SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False or env("DEBUG")
 
 ALLOWED_HOSTS = []
 
@@ -121,10 +121,10 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# LOGGING
+# Logging
 LOGGING = {
-    "version": 1,  # the dictConfig format version
-    "disable_existing_loggers": False,  # retain the default loggers
+    "version": 1,
+    "disable_existing_loggers": False,
     "formatters": {
         "verbose": {
             "format": "{levelname} {asctime} {module} {process:d} {thread:d} {message}",
@@ -159,9 +159,5 @@ LOGGING = {
     },
 }
 
-# Read other configs
-# examples:
-# BASE_URL = configs.BASE_URL
-# APPEND_SLASH = False
-
+# Add Automapper extensions
 extend(mapper)

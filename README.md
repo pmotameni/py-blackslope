@@ -1,6 +1,8 @@
 # py-blackslope
 
-Python implementation of BlackSlope
+Balckslope is a reference architecture for implementing the API layer for web applications. It contains a set of guidelines and best practices.
+The py-blackslope is a python implementation of Blackslope. The underlying framework for this implementation is [Django](https://www.djangoproject.com/) and [Django REST]
+(https://www.django-rest-framework.org/) framework
 
 ## Other BlackSlope Implementations
 
@@ -16,7 +18,7 @@ $ poetry run install
 
 ## Initialize the environment
 
-For local environment a ".env" file should be created under the blackslope folder. This file contains the secretes for local use. For CI/CD pipeline refer to the user guide for them to create environment variables
+For local environment a ".env" file should be created under the blackslope folder. This file contains the secretes for local use. For CI/CD pipeline refer to the user guide of the tool to create environment variables.
 
 ```local.env
 # Do not check it the .env files which contain secrets
@@ -162,3 +164,7 @@ def my_endpoint(self, something_else, request, model_class: MyModelClass)
 ```
 
 Note that request_position is base 0.
+
+## logging
+
+Django contains a logging mechanism that extends the Python’s builtin logging module. Configurations of the logging is defined in `blackslope.settings.py`. The `LOGGING` value will be used to congigure the logging. The default behavior is to log to a file and console. Check the [Django Document](https://docs.djangoproject.com/en/4.0/topics/logging/) for details on logging configurations.
