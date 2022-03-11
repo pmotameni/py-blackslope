@@ -1,8 +1,22 @@
 from django.urls import path
 
-from apiapp.operations.movies import views
+from apiapp.operations.movies import MovieController, MoviesController
+from apiapp.services.movies import MovieService
+from ioc.bootstrapper import Bootstrapper
+
+container = Bootstrapper().bootstrap()
 
 urlpatterns = [
-    path("movies/", views.MoviesController.as_view()),
-    path("movies/<int:id>/", views.MovieController.as_view()),
+    path(
+        "movies/", MoviesController().as_view(movie_svc=container.resolve(MovieService))
+    ),
+    path(
+        "movies/<int:id>/",
+        MovieController().as_view(movie_svc=container.resolve(MovieService)),
+    ),
 ]
+
+# urlpatterns = [
+#     path("movies/", MoviesController.as_view()),
+#     path("movies/<int:id>/", MovieController.as_view()),
+# ]
