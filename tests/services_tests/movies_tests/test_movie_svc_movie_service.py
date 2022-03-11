@@ -8,7 +8,7 @@ from apiapp.services.movies import MovieService
 
 @pytest.fixture(scope="function")
 def service():
-    return MovieService()
+    return MovieService(MovieRepository())
 
 
 class TestMovieServiceCreateMoviesShould:

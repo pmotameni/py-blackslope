@@ -3,6 +3,7 @@ from pydantic import ValidationError
 from rest_framework.test import APIRequestFactory
 
 from apiapp.operations.movies import MoviesController
+from apiapp.repositories.movies import MovieRepository
 from apiapp.services.movies import Movie as MovieDomainModel
 from apiapp.services.movies import MovieService
 
@@ -26,7 +27,9 @@ class TestMoviesControllerPostShould:
             {"movies": [{"title": "movie34", "description": "desc2"}]},
             format="json",
         )
-        view = MoviesController.as_view()
+        view = MoviesController.as_view(
+            movie_svc=MovieService(movie_repository=MovieRepository())
+        )
         response = view(request)
 
         assert response.status_code == 200
@@ -38,7 +41,9 @@ class TestMoviesControllerPostShould:
     def test_fail_when_title_is_null(self, factory, mocker):
         mocker.patch("apiapp.services.movies.MovieService.create_movies")
         request = factory.post("/movies/", format="json")
-        view = MoviesController.as_view()
+        view = MoviesController.as_view(
+            movie_svc=MovieService(movie_repository=MovieRepository())
+        )
         with pytest.raises(ValidationError) as exc_info:
             view(request)
         assert exc_info.value.errors() == [
@@ -60,7 +65,9 @@ class TestMoviesControllerGetShould:
             "apiapp.services.movies.MovieService.get_movies", return_value=return_value
         )
         request = factory.get("/movies?title=test", format="json")
-        view = MoviesController.as_view()
+        view = MoviesController.as_view(
+            movie_svc=MovieService(movie_repository=MovieRepository())
+        )
         response = view(request)
 
         assert response.status_code == 200
