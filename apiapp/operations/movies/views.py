@@ -30,11 +30,10 @@ class BaseController(APIController):
 
 
 class MoviesController(BaseController):
+    movie_svc: MovieService = {}
     """This controller is for list actions or create new one"""
 
     def __init__(self, **kwargs):
-        # TODO register the service instance somewhere!
-        self.movie_svc = MovieService()
         super().__init__(**kwargs)
 
     def get(self, request):
@@ -59,11 +58,10 @@ class MoviesController(BaseController):
 
 
 class MovieController(BaseController):
+    movie_svc: MovieService = {}
     """This controller is for single item actions"""
 
     def __init__(self, **kwargs):
-        # TODO register the service instance somewhere!
-        self.movie_svc = MovieService()
         super().__init__(**kwargs)
 
     def get(self, request, id):

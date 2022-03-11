@@ -2,6 +2,7 @@ import pytest
 from rest_framework.test import APIRequestFactory
 
 from apiapp.operations.movies import MovieController
+from apiapp.repositories.movies import MovieRepository
 from apiapp.services.movies import Movie as MovieDomainModel
 from apiapp.services.movies import MovieService
 
@@ -20,7 +21,9 @@ class TestMovieControllerGetShould:
             "apiapp.services.movies.MovieService.get_movie", return_value=return_value
         )
         request = factory.get("/movies/", format="json")
-        view = MovieController.as_view()
+        view = MovieController.as_view(
+            {"movie_service": MovieService(movie_repository=MovieRepository())}
+        )
         response = view(request, id=1)
 
         MovieService.get_movie.assert_called_once_with(1)

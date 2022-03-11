@@ -7,10 +7,8 @@ from .domainmodels import Movie as MovieDomainModel
 
 
 class MovieService:
-    def __init__(self):
-        # TODO register the service instance some where!
-        #       we do not need to recreate this everytime
-        self.movie_repo = MovieRepository()
+    def __init__(self, movie_repository: MovieRepository):
+        self.movie_repo = movie_repository
 
     def create_movies(self, movies: MovieDomainModel) -> list[MovieDomainModel]:
         """Create single movies"""
