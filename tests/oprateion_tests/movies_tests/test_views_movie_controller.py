@@ -22,7 +22,7 @@ class TestMovieControllerGetShould:
         )
         request = factory.get("/movies/", format="json")
         view = MovieController.as_view(
-            {"movie_service": MovieService(movie_repository=MovieRepository())}
+            movie_svc=MovieService(movie_repository=MovieRepository())
         )
         response = view(request, id=1)
 
@@ -45,7 +45,9 @@ class TestMovieControllerPutShould:
             {"movie": {"id": "1", "title": "test movie", "description": "desc2"}},
             format="json",
         )
-        view = MovieController.as_view()
+        view = MovieController.as_view(
+            movie_svc=MovieService(movie_repository=MovieRepository())
+        )
         response = view(request, id=1)
         movie_dm = MovieDomainModel(id=1, title="test movie", description="desc2")
 
@@ -59,7 +61,9 @@ class TestMovieControllerDeleteShould:
 
         mocker.patch("apiapp.services.movies.MovieService.delete_movie")
         request = factory.delete("/movies/1/")
-        view = MovieController.as_view()
+        view = MovieController.as_view(
+            movie_svc=MovieService(movie_repository=MovieRepository())
+        )
         response = view(request, id=1)
 
         MovieService.delete_movie.assert_called_once_with(1)

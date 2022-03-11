@@ -6,6 +6,11 @@ repos:
       entry: poetry run black .
       pass_filenames: false
       language: system
+    - id: system
+      name: pytest
+      entry: poetry run pytest
+      pass_filenames: false
+      language: system
 #    - id: system
 #      name: isort
 #      entry: poetry run isort .
@@ -14,10 +19,5 @@ repos:
 #    - id: system
 #      name: pylint
 #      entry: poetry run pylint --load-plugins pylint_django --django-settings-module=blackslope.settings apiapp
-#      pass_filenames: false
-#      language: system
-#    - id: system
-#      name: pytest
-#      entry: poetry run pytest
 #      pass_filenames: false
 #      language: system
