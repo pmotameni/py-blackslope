@@ -30,11 +30,8 @@ class BaseController(APIController):
 
 
 class MoviesController(BaseController):
-    movie_svc: MovieService = {}
+    movie_svc: MovieService = None
     """This controller is for list actions or create new one"""
-
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
 
     def get(self, request):
         search_term = request.query_params.get("title")
@@ -57,11 +54,8 @@ class MoviesController(BaseController):
 
 
 class MovieController(BaseController):
-    movie_svc: MovieService = {}
+    movie_svc: MovieService = None
     """This controller is for single item actions"""
-
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
 
     def get(self, request, id):
         movie_dm = self.movie_svc.get_movie(id)
