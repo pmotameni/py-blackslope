@@ -1,3 +1,4 @@
+import json
 from pathlib import Path
 
 import environ
@@ -18,7 +19,7 @@ environ.Env.read_env()
 SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False or env("DEBUG")
+DEBUG = env("DEBUG")
 
 ALLOWED_HOSTS = []
 
@@ -121,6 +122,9 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+LOG_HANDLERS = json.loads(env("LOG_HANDLERS"))
+
+
 # Logging
 LOGGING = {
     "version": 1,
@@ -152,7 +156,7 @@ LOGGING = {
     },
     "loggers": {
         "django": {
-            "handlers": ["file", "console"],
+            "handlers": LOG_HANDLERS,
             "level": "INFO",
             "propagate": True,
         },

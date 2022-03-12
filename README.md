@@ -23,6 +23,8 @@ For local environment a ".env" file should be created under the blackslope folde
 ```local.env
 # Do not check it the .env files which contain secrets
 SECRET_KEY=<some_random_secret>
+DEBUG=True
+LOG_HANDLERS='["file", "console"]'
 ```
 
 ## Run using poetry script
