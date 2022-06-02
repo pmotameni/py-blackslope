@@ -1,14 +1,17 @@
 # py-blackslope
 
-Balckslope is a reference architecture for implementing the API layer for web applications. It contains a set of guidelines and best practices.
-The py-blackslope is a python implementation of Blackslope. The underlying framework for this implementation is [Django](https://www.djangoproject.com/) and [Django REST]
-(https://www.django-rest-framework.org/) framework
+Blackslope is a reference architecture for implementing the API layer for web applications. It contains a set of guidelines and best practices.
+The py-blackslope is a python implementation of Blackslope. The underlying framework for this implementation is [Django](https://www.djangoproject.com/) and [Django REST](https://www.django-rest-framework.org/) framework
 
 ## Other BlackSlope Implementations
 
 -   [BlackSlope.NET](https://github.com/SlalomBuild/blackslope.net) is the .NET implementation of the BlackSlope.
 
 # How to run
+## Python
+Current py-blackslope uses [Python 3.10](https://www.python.org/downloads/release/python-3100/).
+## Poetry 
+[Poetry](https://python-poetry.org/docs/) is the preferred tool for dependency management for py-blackslope.
 
 ## Install dependencies and pre-commit git hooks
 
@@ -69,7 +72,7 @@ poetry run lint
 
 This command will lint your application and fix what it can.
 
-## Precommit
+## Pre-commit
 
 When you try to commit your code in git, the pre-commit package will run linting and tests against your application. These checks help ensure code consistency and quality. Any failures will prevent you from committing your code. To check if pre-commit will fail without committing, run the following command:
 
@@ -79,11 +82,10 @@ poetry run pre-commit
 
 # How to add API Endpoint
 
-Py-BlackSlope uses the View Class approach for API endpoints
-Create the folder under the operations. In the views file add the class which serve as controllers. Each method in a controller will handle a HTTP method.
+Py-BlackSlope uses the View Class approach for API endpoints. To add new endpoints create a folder under the `operations` and name it according to the resource. Add a file name `views.py` and in the file add the class which serve as controllers. Each method in a controller will handle a HTTP method.
 
 Add the Paths to the API in:
-the urls.py under the apiapp folder
+the `urls.py` under the `apiapp` folder
 
 -   import the function that handles the endpoint call
 -   add `path('sample/subsample/', handler_function, name='name_of_sample')`
